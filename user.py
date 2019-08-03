@@ -45,10 +45,12 @@ def login():
             print("Welcome Back")
             session(username)
         else:
-            print("Sorry, ! Try Again")
+            print("Sorry, Wrong Password ! Try Again")
+            login()
         # now from here call joural part
     else:
         print("Sorry, User does not exist")
+        login()
 
 
 def signup():
@@ -57,14 +59,17 @@ def signup():
     password = input("Specify Password for your account : ")
     cwd = os.getcwd()
     user_info = cwd + '/user/' + username
+    if os.path.exists(user_info):
+        print("Username Already Taken, Please try again")
+        signup()
     try:
         file = open(user_info, "w")
         file.write(username + "\n")
         file.write(password + "\n")
         file.write(name + "\n")
+        session(username)
     except Exception as e:
         print(e)
-    session(username)
 
 
 # User session
