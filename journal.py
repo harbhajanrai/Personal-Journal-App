@@ -46,7 +46,7 @@ def select_journal(username):
         print(journal)
 
 
-def fetch_content(username):
+def fetch_content():
     content = input("Write till your heart's content :)")
     return content
 
@@ -56,6 +56,34 @@ def add_page(username):
     filename = title.replace(" ", "") + ".txt"  # Adding .txt so we can create the page
 
     add_content(username)
+
+
+def add_content(username):
+    select_journal(username)
+    journal_name = input("Select the journal Name : ")
+    title = input("What's the title of your entry?  ")
+    content = fetch_content()
+    filename = title.replace(" ", "") + ".txt"
+    cwd = os.getcwd()
+    path = cwd + "/journals/" + username + "/" +journal_name +"/" + filename
+    entry = open(path, "a")
+    author = username
+    entry.write(author + "\n")
+    entry.write(title + "\n")
+    entry.write(str(datetime.datetime.now()) + "\n")
+
+    count = 0
+    prev_index = 0
+    for i in range(0, len(content) - 1):
+        if content[i] == " ":
+            entry.write(content[prev_index:i])
+            count += 1
+            prev_index = i
+        if count == 10:
+            count = 0
+            entry.write("\n")
+
+    entry.close()
 
 
 def remove_page(username):
