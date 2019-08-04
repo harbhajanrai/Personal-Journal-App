@@ -1,0 +1,7 @@
+Unit testcases:
+->User should be able to register if not registered
+->register should fail if user is using already resigterd username
+->can create jouranl
+->veiw jouranl according to username
+->remove any entry from jouranl
+->add entry to journal
